@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculadora de Matricaes</title>
+        <script>
+            function crearMatriz() {
+                let filas = parseInt(document.getElementById("filas").value);
+                let columnas = parseInt(document.getElementById("columnas").value);
+                let matrizHTML = "<table border='1'>";
+                
+                for (let i = 0; i < filas; i++) {
+                    matrizHTML += "<tr>";
+                    for (let j = 0; j < columnas; j++) {
+                        matrizHTML += `<td><input type="number" id="⁠ m${i}${j} ⁠" value="0"></td>`;
+                    }
+                    matrizHTML += "</tr>";
+                }
+                matrizHTML += "</table><br><button onclick='leerMatriz()'>Calcular Determinante</button>";
+                
+                document.getElementById("matrizContainer").innerHTML = matrizHTML;
+            }
+    
+            function leerMatriz() {
+                let filas = parseInt(document.getElementById("filas").value);
+                let columnas = parseInt(document.getElementById("columnas").value);
+                if (filas !== columnas) {
+                    alert("La matriz debe ser cuadrada para calcular el determinante.");
+                    return;
+                }
+                let matriz = [];
+                for (let i = 0; i < filas; i++) {
+                    let fila = [];
+                    for (let j = 0; j < columnas; j++) {
+                        fila.push(parseInt(document.getElementById(`⁠ m${i}${j} ⁠`).value));
+                    }
+                    matriz.push(fila);
+                }
+                let det = calcularDeterminante(matriz);
+                document.getElementById("resultado").innerText = "Determinante: " + det;
+            }
+    
+            function calcularDeterminante(matriz) {
+                let n = matriz.length;
+                if (n === 1) return matriz[0][0];
+                if (n === 2) return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
+                
+                let det = 0;
+                for (let i = 0; i < n; i++) {
+                    let submatriz = matriz.slice(1).map(row => row.filter((_, j) => j !== i));
+                    det += (i % 2 === 0 ? 1 : -1) * matriz[0][i] * calcularDeterminante(submatriz);
+                }
+                return det;
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Operaciones con Matrices</h2>
+        <label for="filas">Filas:</label>
+        <input type="number" id="filas" min="1" value="2">
+        <label for="columnas">Columnas:</label>
+        <input type="number" id="columnas" min="1" value="2">
+        <button onclick="crearMatriz()">Generar Matriz</button>
+        <br><br>
+        <div id="matrizContainer"></div>
+        <p id="resultado"></p>
+    </body>
+</html>
