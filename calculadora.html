@@ -13,10 +13,34 @@
             background-color: #f5f5f5;
         }
         
-        h1 {
-            color: #2c3e50;
+        /* Animación del título */
+        .typewriter h1 {
+            color: #33618e;
             text-align: center;
             margin-bottom: 30px;
+            overflow: hidden;
+            border-right: .15em solid #33618e;
+            white-space: nowrap; 
+            margin: 0 auto 30px;
+            letter-spacing: .10em;
+            width: 0;
+            
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+                
+        }
+        
+        /* Animación de escritura */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        /* Animación del cursor */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #33618e; }
         }
         
         .selector-matriz {
@@ -129,7 +153,9 @@
     </style>
 </head>
 <body>
-    <h1>Calculadora de Matrices</h1>
+    <div class="typewriter"> 
+        <h1>Calculadora de Matrices</h1>
+    </div>
     
     <div class="selector-matriz">
         <h2>Seleccione el tamaño de la matriz:</h2>
@@ -154,13 +180,96 @@
         <div id="resultadoContenido"></div>
     </div>
     
-    <script src="main.js"></script>
     <script>
         // Variables globales
         let tamanoMatriz = 0;
         let matrizActual = null;
         
-        // Elementos del DOM
+        // Clase Matriz (Suponiendo que esta clase ya existe en tu main.js)
+        class Matriz {
+            constructor(filas, columnas) {
+                this.filas = filas;
+                this.columnas = columnas;
+                this.matriz = [];
+                
+                // Inicializar matriz con ceros
+                for (let i = 0; i < filas; i++) {
+                    this.matriz[i] = [];
+                    for (let j = 0; j < columnas; j++) {
+                        this.matriz[i][j] = 0;
+                    }
+                }
+            }
+            
+            llenarDesdeArray(array) {
+                for (let i = 0; i < this.filas; i++) {
+                    for (let j = 0; j < this.columnas; j++) {
+                        this.matriz[i][j] = array[i][j];
+                    }
+                }
+            }
+            
+            calcularDeterminante() {
+                if (this.filas !== this.columnas) {
+                    throw new Error("La matriz debe ser cuadrada para calcular su determinante");
+                }
+                
+                if (this.filas === 2) {
+                    return this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0];
+                }
+                
+
+                if (this.filas === 3) {
+                    return this.matriz[0][0] * (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1])
+                         - this.matriz[0][1] * (this.matriz[1][0] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][0])
+                         + this.matriz[0][2] * (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]);
+                }
+                
+                throw new Error("Cálculo de determinante no implementado para matrices mayores de 3x3");
+            }
+            
+            calcularInversa() {
+                if (this.filas !== this.columnas) {
+                    throw new Error("La matriz debe ser cuadrada para calcular su inversa");
+                }
+                
+                const det = this.calcularDeterminante();
+                if (Math.abs(det) < 1e-10) {
+                    throw new Error("La matriz no tiene inversa (determinante = 0)");
+                }
+                
+
+                if (this.filas === 2) {
+                    const resultado = new Matriz(2, 2);
+                    resultado.matriz[0][0] = this.matriz[1][1] / det;
+                    resultado.matriz[0][1] = -this.matriz[0][1] / det;
+                    resultado.matriz[1][0] = -this.matriz[1][0] / det;
+                    resultado.matriz[1][1] = this.matriz[0][0] / det;
+                    return resultado;
+                }
+                
+
+                if (this.filas === 3) {
+                    const resultado = new Matriz(3, 3);
+                    
+
+                    resultado.matriz[0][0] = (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1]) / det;
+                    resultado.matriz[0][1] = -(this.matriz[0][1] * this.matriz[2][2] - this.matriz[0][2] * this.matriz[2][1]) / det;
+                    resultado.matriz[0][2] = (this.matriz[0][1] * this.matriz[1][2] - this.matriz[0][2] * this.matriz[1][1]) / det;
+                    resultado.matriz[1][0] = -(this.matriz[1][0] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][0]) / det;
+                    resultado.matriz[1][1] = (this.matriz[0][0] * this.matriz[2][2] - this.matriz[0][2] * this.matriz[2][0]) / det;
+                    resultado.matriz[1][2] = -(this.matriz[0][0] * this.matriz[1][2] - this.matriz[0][2] * this.matriz[1][0]) / det;
+                    resultado.matriz[2][0] = (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]) / det;
+                    resultado.matriz[2][1] = -(this.matriz[0][0] * this.matriz[2][1] - this.matriz[0][1] * this.matriz[2][0]) / det;
+                    resultado.matriz[2][2] = (this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0]) / det;
+                    
+                    return resultado;
+                }
+                
+                throw new Error("Cálculo de inversa no implementado para matrices mayores de 3x3");
+            }
+        }
+        
         const btn2x2 = document.getElementById('btn2x2');
         const btn3x3 = document.getElementById('btn3x3');
         const matrizContainer = document.getElementById('matrizContainer');
@@ -170,7 +279,6 @@
         const resultadoDiv = document.getElementById('resultado');
         const resultadoContenido = document.getElementById('resultadoContenido');
         
-        // Event Listeners
         btn2x2.addEventListener('click', () => crearMatriz(2));
         btn3x3.addEventListener('click', () => crearMatriz(3));
         btnDeterminante.addEventListener('click', calcularDeterminante);
@@ -196,7 +304,6 @@
             matrizInputs.innerHTML = html;
         }
         
-        // Función para obtener los valores de la matriz desde los inputs
         function obtenerMatrizDesdeInputs() {
             const valores = [];
             
