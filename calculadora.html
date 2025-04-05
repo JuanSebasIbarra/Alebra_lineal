@@ -5,193 +5,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Matrices</title>
     <style>
+        /* Reset global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        /* Animación del título */
-        .typewriter h1 {
-            color: #33618e;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6e7dff, #ffffff);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-bottom: 30px;
-            overflow: hidden;
-            border-right: .15em solid #33618e;
-            white-space: nowrap; 
-            margin: 0 auto 30px;
-            letter-spacing: .10em;
-            width: 0;
-            
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret .75s step-end infinite;
-                
+            padding: 0 20px;
         }
-        
-        /* Animación de escritura */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            padding: 40px;
+            margin: 0 auto;
         }
-        
-        /* Animación del cursor */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #33618e; }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out;
         }
-        
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .selector-matriz {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .selector-matriz h2 {
+            font-size: 1.5em;
+            color: #34495e;
             margin-bottom: 20px;
         }
-        
-        .selector-matriz h2 {
-            margin-top: 0;
-            color: #34495e;
-        }
-        
-        .botones-tamano {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
+
         .botones-tamano button {
-            padding: 10px 15px;
             background-color: #3498db;
-            color: white;
+            color: #fff;
+            font-size: 18px;
             border: none;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
-        
+
         .botones-tamano button:hover {
             background-color: #2980b9;
         }
-        
+
         .matriz-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
             display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
-        
+
         .matriz-container h2 {
-            margin-top: 0;
-            color: #34495e;
+            font-size: 1.5em;
+            color: #5e3434;
+            margin-bottom: 20px;
         }
-        
+
         table {
+            width: 100%;
+            margin-bottom: 20px;
             border-collapse: collapse;
-            margin: 0 auto 20px;
         }
-        
+
         td {
             padding: 10px;
-            border: 1px solid #ddd;
-        }
-        
-        input[type="number"] {
-            width: 60px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
             text-align: center;
-            font-size: 16px;
+            border: 1px solid #adceff;
+            background-color: #adceff;
         }
-        
+
+        input[type="number"] {
+            width: 50px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: border 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border: 1px solid #3498db;
+        }
+
         .botones-operaciones {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
+            margin-top: 20px;
         }
-        
+
         .botones-operaciones button {
-            padding: 10px 15px;
             background-color: #2ecc71;
-            color: white;
+            color: #fff;
+            font-size: 18px;
             border: none;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            width: 45%;
+            transition: background-color 0.3s ease;
         }
-        
+
         .botones-operaciones button:hover {
             background-color: #27ae60;
         }
-        
+
         #resultado {
-            background-color: white;
+            background-color: #6eadd1;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
             display: none;
         }
-        
+
         #resultado h3 {
-            margin-top: 0;
+            font-size: 1.5em;
             color: #34495e;
+            margin-bottom: 20px;
         }
-        
+
         .error {
-            color: #e74c3c;
+            color: #000000;
+            font-weight: bold;
             margin-top: 10px;
+        }
+
+        /* Animations for result */
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #resultado {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        /* New class for result numbers */
+        .resultado-numero {
+            color: #0000FF; /* Color azul */
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="typewriter"> 
+    <div class="container">
         <h1>Calculadora de Matrices</h1>
-    </div>
-    
-    <div class="selector-matriz">
-        <h2>Seleccione el tamaño de la matriz:</h2>
-        <div class="botones-tamano">
-            <button id="btn2x2">Matriz 2×2</button>
-            <button id="btn3x3">Matriz 3×3</button>
+        <div class="selector-matriz">
+            <h2>Seleccione el tamaño de la matriz:</h2>
+            <div class="botones-tamano">
+                <button id="btn2x2" aria-label="Seleccionar matriz 2x2">Matriz 2×2</button>
+                <button id="btn3x3" aria-label="Seleccionar matriz 3x3">Matriz 3×3</button>
+            </div>
+        </div>
+        <div id="matrizContainer" class="matriz-container">
+            <h2>Ingrese los valores de la matriz:</h2>
+            <div id="matrizInputs"></div>
+            <div class="botones-operaciones">
+                <button id="btnDeterminante" aria-label="Calcular determinante">Calcular Determinante</button>
+                <button id="btnInversa" aria-label="Calcular inversa">Calcular Inversa</button>
+            </div>
+        </div>
+        <div id="resultado">
+            <h3>Resultado:</h3>
+            <div id="resultadoContenido"></div>
+            <canvas id="graficaDispersion"></canvas>
         </div>
     </div>
-    
-    <div id="matrizContainer" class="matriz-container">
-        <h2>Ingrese los valores de la matriz:</h2>
-        <div id="matrizInputs"></div>
-        
-        <div class="botones-operaciones">
-            <button id="btnDeterminante">Calcular Determinante</button>
-            <button id="btnInversa">Calcular Inversa</button>
-        </div>
-    </div>
-    
-    <div id="resultado">
-        <h3>Resultado:</h3>
-        <div id="resultadoContenido"></div>
-    </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Variables globales
         let tamanoMatriz = 0;
         let matrizActual = null;
-        
-        // Clase Matriz (Suponiendo que esta clase ya existe en tu main.js)
+        let grafica;
+
+        // Clase Matriz
         class Matriz {
             constructor(filas, columnas) {
                 this.filas = filas;
                 this.columnas = columnas;
                 this.matriz = [];
-                
+
                 // Inicializar matriz con ceros
                 for (let i = 0; i < filas; i++) {
                     this.matriz[i] = [];
@@ -200,7 +232,7 @@
                     }
                 }
             }
-            
+
             llenarDesdeArray(array) {
                 for (let i = 0; i < this.filas; i++) {
                     for (let j = 0; j < this.columnas; j++) {
@@ -208,36 +240,34 @@
                     }
                 }
             }
-            
+
             calcularDeterminante() {
                 if (this.filas !== this.columnas) {
                     throw new Error("La matriz debe ser cuadrada para calcular su determinante");
                 }
-                
+
                 if (this.filas === 2) {
                     return this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0];
                 }
-                
 
                 if (this.filas === 3) {
                     return this.matriz[0][0] * (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1])
                          - this.matriz[0][1] * (this.matriz[1][0] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][0])
                          + this.matriz[0][2] * (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]);
                 }
-                
+
                 throw new Error("Cálculo de determinante no implementado para matrices mayores de 3x3");
             }
-            
+
             calcularInversa() {
                 if (this.filas !== this.columnas) {
                     throw new Error("La matriz debe ser cuadrada para calcular su inversa");
                 }
-                
+
                 const det = this.calcularDeterminante();
                 if (Math.abs(det) < 1e-10) {
                     throw new Error("La matriz no tiene inversa (determinante = 0)");
                 }
-                
 
                 if (this.filas === 2) {
                     const resultado = new Matriz(2, 2);
@@ -247,11 +277,9 @@
                     resultado.matriz[1][1] = this.matriz[0][0] / det;
                     return resultado;
                 }
-                
 
                 if (this.filas === 3) {
                     const resultado = new Matriz(3, 3);
-                    
 
                     resultado.matriz[0][0] = (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1]) / det;
                     resultado.matriz[0][1] = -(this.matriz[0][1] * this.matriz[2][2] - this.matriz[0][2] * this.matriz[2][1]) / det;
@@ -262,14 +290,14 @@
                     resultado.matriz[2][0] = (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]) / det;
                     resultado.matriz[2][1] = -(this.matriz[0][0] * this.matriz[2][1] - this.matriz[0][1] * this.matriz[2][0]) / det;
                     resultado.matriz[2][2] = (this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0]) / det;
-                    
+
                     return resultado;
                 }
-                
+
                 throw new Error("Cálculo de inversa no implementado para matrices mayores de 3x3");
             }
         }
-        
+
         const btn2x2 = document.getElementById('btn2x2');
         const btn3x3 = document.getElementById('btn3x3');
         const matrizContainer = document.getElementById('matrizContainer');
@@ -278,71 +306,79 @@
         const btnInversa = document.getElementById('btnInversa');
         const resultadoDiv = document.getElementById('resultado');
         const resultadoContenido = document.getElementById('resultadoContenido');
-        
+        const graficaDispersion = document.getElementById('graficaDispersion').getContext('2d');
+
         btn2x2.addEventListener('click', () => crearMatriz(2));
         btn3x3.addEventListener('click', () => crearMatriz(3));
         btnDeterminante.addEventListener('click', calcularDeterminante);
         btnInversa.addEventListener('click', calcularInversa);
-        
+
         // Función para crear los inputs de la matriz
         function crearMatriz(tamano) {
             tamanoMatriz = tamano;
             matrizContainer.style.display = 'block';
             resultadoDiv.style.display = 'none';
-            
+
             // Crear tabla HTML para los inputs
             let html = '<table>';
             for (let i = 0; i < tamano; i++) {
                 html += '<tr>';
                 for (let j = 0; j < tamano; j++) {
-                    html += `<td><input type="number" id="m${i}${j}" value="0" class="input-matriz"></td>`;
+                    html += `<td><input type="number" id="m${i}${j}" value="0" class="input-matriz" aria-label="Valor de la matriz en la posición ${i+1},${j+1}"></td>`;
                 }
                 html += '</tr>';
             }
             html += '</table>';
-            
+
             matrizInputs.innerHTML = html;
         }
-        
+
         function obtenerMatrizDesdeInputs() {
             const valores = [];
-            
+
             for (let i = 0; i < tamanoMatriz; i++) {
                 valores[i] = [];
                 for (let j = 0; j < tamanoMatriz; j++) {
                     const input = document.getElementById(`m${i}${j}`);
-                    valores[i][j] = parseFloat(input.value) || 0;
+                    const valor = parseFloat(input.value);
+                    if (isNaN(valor)) {
+                        throw new Error(`El valor en la posición ${i+1},${j+1} no es un número válido.`);
+                    }
+                    valores[i][j] = valor;
                 }
             }
-            
+
             return valores;
         }
-        
+
         // Función para calcular el determinante
         function calcularDeterminante() {
             try {
                 const valores = obtenerMatrizDesdeInputs();
                 matrizActual = new Matriz(tamanoMatriz, tamanoMatriz);
                 matrizActual.llenarDesdeArray(valores);
-                
+
                 const determinante = matrizActual.calcularDeterminante();
-                
-                resultadoContenido.innerHTML = `El determinante es: <strong>${determinante}</strong>`;
+
+                resultadoContenido.innerHTML = `El determinante es: <strong class="resultado-numero">${determinante}</strong>`;
                 resultadoDiv.style.display = 'block';
+
+                // Crear gráfica de dispersión
+                crearGraficaDispersion(valores, 'Determinante');
             } catch (error) {
                 mostrarError(error.message);
             }
         }
-        
+
         // Función para calcular la inversa
         function calcularInversa() {
             try {
                 const valores = obtenerMatrizDesdeInputs();
                 matrizActual = new Matriz(tamanoMatriz, tamanoMatriz);
                 matrizActual.llenarDesdeArray(valores);
-                
+
                 const inversa = matrizActual.calcularInversa();
-                
+
                 // Mostrar la matriz inversa en una tabla
                 let html = '<table>';
                 for (let i = 0; i < tamanoMatriz; i++) {
@@ -350,23 +386,92 @@
                     for (let j = 0; j < tamanoMatriz; j++) {
                         // Redondear a 4 decimales para mejor visualización
                         const valor = Math.round(inversa.matriz[i][j] * 10000) / 10000;
-                        html += `<td>${valor}</td>`;
+                        html += `<td class="resultado-numero">${valor}</td>`;
                     }
                     html += '</tr>';
                 }
                 html += '</table>';
-                
+
                 resultadoContenido.innerHTML = '<strong>Matriz Inversa:</strong><br>' + html;
                 resultadoDiv.style.display = 'block';
+
+                // Crear gráfica de dispersión
+                crearGraficaDispersion(inversa.matriz, 'Inversa');
             } catch (error) {
                 mostrarError(error.message);
             }
         }
-        
+
         // Función para mostrar errores
         function mostrarError(mensaje) {
             resultadoContenido.innerHTML = `<span class="error">Error: ${mensaje}</span>`;
             resultadoDiv.style.display = 'block';
+        }
+
+        // Función para crear la gráfica de dispersión
+        function crearGraficaDispersion(matriz, tipo) {
+            const data = {
+                datasets: [{
+                    label: `Gráfica de Dispersión (${tipo})`,
+                    data: [],
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            };
+
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    data.datasets[0].data.push({ x: j, y: matriz[i][j], label: `Fila ${i+1}, Columna ${j+1}` });
+                }
+            }
+
+            const config = {
+                type: 'scatter',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Índice de Columna'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Valor'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.raw && context.raw.label) {
+                                        label += context.raw.label;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (grafica) {
+                grafica.destroy();
+            }
+
+            grafica = new Chart(graficaDispersion, config);
         }
     </script>
 </body>
