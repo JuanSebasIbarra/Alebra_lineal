@@ -16,12 +16,12 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #6e7dff, #ffffff);
             color: #fff;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
+            padding: 20px;
         }
 
         .container {
@@ -29,7 +29,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 700px;
+            max-width: 1000px;
             padding: 40px;
             margin: 0 auto;
         }
@@ -61,6 +61,14 @@
             margin-bottom: 20px;
         }
 
+        .botones-tamano {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
         .botones-tamano button {
             background-color: #3498db;
             color: #fff;
@@ -69,12 +77,81 @@
             padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
-            width: 100%;
+            min-width: 150px;
             transition: background-color 0.3s ease;
         }
 
         .botones-tamano button:hover {
             background-color: #2980b9;
+        }
+
+        .personalizar-matriz {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .personalizar-matriz h3 {
+            font-size: 1.3em;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        .input-dimension {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-grupo {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .input-grupo label {
+            color: #34495e;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .input-grupo input {
+            width: 60px;
+            padding: 8px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-crear {
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-crear:hover {
+            background-color: #c0392b;
+        }
+
+        /* Container para ambas matrices */
+        .matrices-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .matriz-container {
@@ -83,13 +160,41 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
         }
 
         .matriz-container h2 {
             font-size: 1.5em;
             color: #5e3434;
             margin-bottom: 20px;
+        }
+
+        .operaciones-entre-matrices {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            margin-top: 50px;
+        }
+
+        .operaciones-entre-matrices button {
+            background-color: #9b59b6;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100px;
+            transition: background-color 0.3s ease;
+        }
+
+        .operaciones-entre-matrices button:hover {
+            background-color: #8e44ad;
         }
 
         table {
@@ -99,7 +204,7 @@
         }
 
         td {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             border: 1px solid #adceff;
             background-color: #adceff;
@@ -107,7 +212,7 @@
 
         input[type="number"] {
             width: 50px;
-            padding: 10px;
+            padding: 8px;
             font-size: 16px;
             text-align: center;
             border-radius: 8px;
@@ -121,25 +226,43 @@
 
         .botones-operaciones {
             display: flex;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .botones-operaciones button {
             background-color: #2ecc71;
             color: #fff;
-            font-size: 18px;
+            font-size: 14px;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
-            width: 45%;
+            flex: 1;
+            min-width: 120px;
             transition: background-color 0.3s ease;
         }
 
         .botones-operaciones button:hover {
             background-color: #27ae60;
+        }
+
+        .btn-eliminar {
+            background-color: #e74c3c !important;
+        }
+
+        .btn-eliminar:hover {
+            background-color: #c0392b !important;
+        }
+
+        .btn-limpiar {
+            background-color: #f39c12 !important;
+        }
+
+        .btn-limpiar:hover {
+            background-color: #d35400 !important;
         }
 
         #resultado {
@@ -149,6 +272,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
             display: none;
+            clear: both;
         }
 
         #resultado h3 {
@@ -190,289 +314,85 @@
     <div class="container">
         <h1>Calculadora de Matrices</h1>
         <div class="selector-matriz">
-            <h2>Seleccione el tamaño de la matriz:</h2>
+            <h2>Agregar Matrices:</h2>
             <div class="botones-tamano">
                 <button id="btn2x2" aria-label="Seleccionar matriz 2x2">Matriz 2×2</button>
                 <button id="btn3x3" aria-label="Seleccionar matriz 3x3">Matriz 3×3</button>
+                <button id="btnPersonalizar" aria-label="Personalizar tamaño de matriz">Personalizar Matriz</button>
+            </div>
+            
+            <div id="personalizarMatriz" class="personalizar-matriz">
+                <h3>Personalizar tamaño de matriz</h3>
+                <div class="input-dimension">
+                    <div class="input-grupo">
+                        <label for="numFilas">Ingrese número de filas (máx 30):</label>
+                        <input type="number" id="numFilas" min="1" max="30" value="4">
+                    </div>
+                    <div class="input-grupo">
+                        <label for="numColumnas">Ingrese número de columnas (máx 30):</label>
+                        <input type="number" id="numColumnas" min="1" max="30" value="4">
+                    </div>
+                </div>
+                <button id="btnCrearMatriz" class="btn-crear">Crear</button>
             </div>
         </div>
-        <div id="matrizContainer" class="matriz-container">
-            <h2>Ingrese los valores de la matriz:</h2>
-            <div id="matrizInputs"></div>
-            <div class="botones-operaciones">
-                <button id="btnDeterminante" aria-label="Calcular determinante">Calcular Determinante</button>
-                <button id="btnInversa" aria-label="Calcular inversa">Calcular Inversa</button>
+        
+        <!-- Contenedor para ambas matrices -->
+        <div class="matrices-wrapper">
+            <!-- Primera matriz (A) -->
+            <div id="matrizContainerA" class="matriz-container">
+                <h2>Matriz A:</h2>
+                <div id="matrizInputsA"></div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnEliminarA" class="btn-eliminar" aria-label="Eliminar matriz A">Eliminar Matriz</button>
+                    <button id="btnLimpiarA" class="btn-limpiar" aria-label="Limpiar celdas matriz A">Limpiar</button>
+                </div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnDeterminanteA" aria-label="Calcular determinante matriz A">Calcular Determinante</button>
+                    <button id="btnInversaA" aria-label="Calcular inversa matriz A">Calcular Inversa</button>
+                </div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnTraspuestaA" aria-label="Calcular traspuesta matriz A">Calcular Traspuesta</button>
+                </div>
+            </div>
+
+            <!-- Operaciones entre matrices -->
+            <div id="operacionesEntreMatrices" class="operaciones-entre-matrices">
+                <button id="btnMultiplicar" aria-label="Multiplicar matrices">A × B</button>
+                <button id="btnSumar" aria-label="Sumar matrices">A + B</button>
+                <button id="btnRestar" aria-label="Restar matrices">A - B</button>
+            </div>
+            
+            <!-- Segunda matriz (B) -->
+            <div id="matrizContainerB" class="matriz-container">
+                <h2>Matriz B:</h2>
+                <div id="matrizInputsB"></div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnEliminarB" class="btn-eliminar" aria-label="Eliminar matriz B">Eliminar Matriz</button>
+                    <button id="btnLimpiarB" class="btn-limpiar" aria-label="Limpiar celdas matriz B">Limpiar</button>
+                </div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnDeterminanteB" aria-label="Calcular determinante matriz B">Calcular Determinante</button>
+                    <button id="btnInversaB" aria-label="Calcular inversa matriz B">Calcular Inversa</button>
+                </div>
+                
+                <div class="botones-operaciones">
+                    <button id="btnTraspuestaB" aria-label="Calcular traspuesta matriz B">Calcular Traspuesta</button>
+                </div>
             </div>
         </div>
+        
         <div id="resultado">
             <h3>Resultado:</h3>
             <div id="resultadoContenido"></div>
             <canvas id="graficaDispersion"></canvas>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Variables globales
-        let tamanoMatriz = 0;
-        let matrizActual = null;
-        let grafica;
-
-        // Clase Matriz
-        class Matriz {
-            constructor(filas, columnas) {
-                this.filas = filas;
-                this.columnas = columnas;
-                this.matriz = [];
-
-                // Inicializar matriz con ceros
-                for (let i = 0; i < filas; i++) {
-                    this.matriz[i] = [];
-                    for (let j = 0; j < columnas; j++) {
-                        this.matriz[i][j] = 0;
-                    }
-                }
-            }
-
-            llenarDesdeArray(array) {
-                for (let i = 0; i < this.filas; i++) {
-                    for (let j = 0; j < this.columnas; j++) {
-                        this.matriz[i][j] = array[i][j];
-                    }
-                }
-            }
-
-            calcularDeterminante() {
-                if (this.filas !== this.columnas) {
-                    throw new Error("La matriz debe ser cuadrada para calcular su determinante");
-                }
-
-                if (this.filas === 2) {
-                    return this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0];
-                }
-
-                if (this.filas === 3) {
-                    return this.matriz[0][0] * (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1])
-                         - this.matriz[0][1] * (this.matriz[1][0] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][0])
-                         + this.matriz[0][2] * (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]);
-                }
-
-                throw new Error("Cálculo de determinante no implementado para matrices mayores de 3x3");
-            }
-
-            calcularInversa() {
-                if (this.filas !== this.columnas) {
-                    throw new Error("La matriz debe ser cuadrada para calcular su inversa");
-                }
-
-                const det = this.calcularDeterminante();
-                if (Math.abs(det) < 1e-10) {
-                    throw new Error("La matriz no tiene inversa (determinante = 0)");
-                }
-
-                if (this.filas === 2) {
-                    const resultado = new Matriz(2, 2);
-                    resultado.matriz[0][0] = this.matriz[1][1] / det;
-                    resultado.matriz[0][1] = -this.matriz[0][1] / det;
-                    resultado.matriz[1][0] = -this.matriz[1][0] / det;
-                    resultado.matriz[1][1] = this.matriz[0][0] / det;
-                    return resultado;
-                }
-
-                if (this.filas === 3) {
-                    const resultado = new Matriz(3, 3);
-
-                    resultado.matriz[0][0] = (this.matriz[1][1] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][1]) / det;
-                    resultado.matriz[0][1] = -(this.matriz[0][1] * this.matriz[2][2] - this.matriz[0][2] * this.matriz[2][1]) / det;
-                    resultado.matriz[0][2] = (this.matriz[0][1] * this.matriz[1][2] - this.matriz[0][2] * this.matriz[1][1]) / det;
-                    resultado.matriz[1][0] = -(this.matriz[1][0] * this.matriz[2][2] - this.matriz[1][2] * this.matriz[2][0]) / det;
-                    resultado.matriz[1][1] = (this.matriz[0][0] * this.matriz[2][2] - this.matriz[0][2] * this.matriz[2][0]) / det;
-                    resultado.matriz[1][2] = -(this.matriz[0][0] * this.matriz[1][2] - this.matriz[0][2] * this.matriz[1][0]) / det;
-                    resultado.matriz[2][0] = (this.matriz[1][0] * this.matriz[2][1] - this.matriz[1][1] * this.matriz[2][0]) / det;
-                    resultado.matriz[2][1] = -(this.matriz[0][0] * this.matriz[2][1] - this.matriz[0][1] * this.matriz[2][0]) / det;
-                    resultado.matriz[2][2] = (this.matriz[0][0] * this.matriz[1][1] - this.matriz[0][1] * this.matriz[1][0]) / det;
-
-                    return resultado;
-                }
-
-                throw new Error("Cálculo de inversa no implementado para matrices mayores de 3x3");
-            }
-        }
-
-        const btn2x2 = document.getElementById('btn2x2');
-        const btn3x3 = document.getElementById('btn3x3');
-        const matrizContainer = document.getElementById('matrizContainer');
-        const matrizInputs = document.getElementById('matrizInputs');
-        const btnDeterminante = document.getElementById('btnDeterminante');
-        const btnInversa = document.getElementById('btnInversa');
-        const resultadoDiv = document.getElementById('resultado');
-        const resultadoContenido = document.getElementById('resultadoContenido');
-        const graficaDispersion = document.getElementById('graficaDispersion').getContext('2d');
-
-        btn2x2.addEventListener('click', () => crearMatriz(2));
-        btn3x3.addEventListener('click', () => crearMatriz(3));
-        btnDeterminante.addEventListener('click', calcularDeterminante);
-        btnInversa.addEventListener('click', calcularInversa);
-
-        // Función para crear los inputs de la matriz
-        function crearMatriz(tamano) {
-            tamanoMatriz = tamano;
-            matrizContainer.style.display = 'block';
-            resultadoDiv.style.display = 'none';
-
-            // Crear tabla HTML para los inputs
-            let html = '<table>';
-            for (let i = 0; i < tamano; i++) {
-                html += '<tr>';
-                for (let j = 0; j < tamano; j++) {
-                    html += `<td><input type="number" id="m${i}${j}" value="0" class="input-matriz" aria-label="Valor de la matriz en la posición ${i+1},${j+1}"></td>`;
-                }
-                html += '</tr>';
-            }
-            html += '</table>';
-
-            matrizInputs.innerHTML = html;
-        }
-
-        function obtenerMatrizDesdeInputs() {
-            const valores = [];
-
-            for (let i = 0; i < tamanoMatriz; i++) {
-                valores[i] = [];
-                for (let j = 0; j < tamanoMatriz; j++) {
-                    const input = document.getElementById(`m${i}${j}`);
-                    const valor = parseFloat(input.value);
-                    if (isNaN(valor)) {
-                        throw new Error(`El valor en la posición ${i+1},${j+1} no es un número válido.`);
-                    }
-                    valores[i][j] = valor;
-                }
-            }
-
-            return valores;
-        }
-
-        // Función para calcular el determinante
-        function calcularDeterminante() {
-            try {
-                const valores = obtenerMatrizDesdeInputs();
-                matrizActual = new Matriz(tamanoMatriz, tamanoMatriz);
-                matrizActual.llenarDesdeArray(valores);
-
-                const determinante = matrizActual.calcularDeterminante();
-
-                resultadoContenido.innerHTML = `El determinante es: <strong class="resultado-numero">${determinante}</strong>`;
-                resultadoDiv.style.display = 'block';
-
-                // Crear gráfica de dispersión
-                crearGraficaDispersion(valores, 'Determinante');
-            } catch (error) {
-                mostrarError(error.message);
-            }
-        }
-
-        // Función para calcular la inversa
-        function calcularInversa() {
-            try {
-                const valores = obtenerMatrizDesdeInputs();
-                matrizActual = new Matriz(tamanoMatriz, tamanoMatriz);
-                matrizActual.llenarDesdeArray(valores);
-
-                const inversa = matrizActual.calcularInversa();
-
-                // Mostrar la matriz inversa en una tabla
-                let html = '<table>';
-                for (let i = 0; i < tamanoMatriz; i++) {
-                    html += '<tr>';
-                    for (let j = 0; j < tamanoMatriz; j++) {
-                        // Redondear a 4 decimales para mejor visualización
-                        const valor = Math.round(inversa.matriz[i][j] * 10000) / 10000;
-                        html += `<td class="resultado-numero">${valor}</td>`;
-                    }
-                    html += '</tr>';
-                }
-                html += '</table>';
-
-                resultadoContenido.innerHTML = '<strong>Matriz Inversa:</strong><br>' + html;
-                resultadoDiv.style.display = 'block';
-
-                // Crear gráfica de dispersión
-                crearGraficaDispersion(inversa.matriz, 'Inversa');
-            } catch (error) {
-                mostrarError(error.message);
-            }
-        }
-
-        // Función para mostrar errores
-        function mostrarError(mensaje) {
-            resultadoContenido.innerHTML = `<span class="error">Error: ${mensaje}</span>`;
-            resultadoDiv.style.display = 'block';
-        }
-
-        // Función para crear la gráfica de dispersión
-        function crearGraficaDispersion(matriz, tipo) {
-            const data = {
-                datasets: [{
-                    label: `Gráfica de Dispersión (${tipo})`,
-                    data: [],
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    pointRadius: 5,
-                    pointHoverRadius: 7
-                }]
-            };
-
-            for (let i = 0; i < matriz.length; i++) {
-                for (let j = 0; j < matriz[i].length; j++) {
-                    data.datasets[0].data.push({ x: j, y: matriz[i][j], label: `Fila ${i+1}, Columna ${j+1}` });
-                }
-            }
-
-            const config = {
-                type: 'scatter',
-                data: data,
-                options: {
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Índice de Columna'
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Valor'
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.raw && context.raw.label) {
-                                        label += context.raw.label;
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            if (grafica) {
-                grafica.destroy();
-            }
-
-            grafica = new Chart(graficaDispersion, config);
-        }
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
